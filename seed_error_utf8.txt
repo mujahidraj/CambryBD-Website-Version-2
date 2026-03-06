@@ -1,0 +1,82 @@
+﻿node.exe : C:\Users\RAJ\.gemini
+\antigravity\playground\sonic-o
+rbit\node_modules\@prisma\clien
+t\src\runtime\getPrismaClient.t
+s:260
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:\User
+s\RAJ\AppData\Roaming\np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
+    + CategoryInfo          :  
+   NotSpecified: (C:\Users\RA  
+  J\.g...maClient.ts:260:Str   
+ ing) [], RemoteException
+    + FullyQualifiedErrorId :  
+   NativeCommandError
+ 
+        throw new PrismaClientI
+nitializationError(
+              ^
+
+
+PrismaClientInitializationError
+: `PrismaClient` needs to be 
+constructed with a non-empty, 
+valid `PrismaClientOptions`:
+
+```
+new PrismaClient({
+  ...
+})
+```
+
+or
+
+```
+constructor() {
+  super({ ... });
+}
+```
+          
+    at new t (C:\Users\RAJ\.gem
+ini\antigravity\playground\soni
+c-orbit\node_modules\@prisma\cl
+ient\src\runtime\getPrismaClien
+t.ts:260:15)
+    at bcrypt (C:\Users\RAJ\.ge
+mini\antigravity\playground\son
+ic-orbit\prisma\seed.ts:4:16)
+    at Object.<anonymous> (C:\U
+sers\RAJ\.gemini\antigravity\pl
+ayground\sonic-orbit\prisma\see
+d.ts:435:6)
+    at Module._compile (node:in
+ternal/modules/cjs/loader:1692:
+14)
+    at Object.transformer (C:\U
+sers\RAJ\.gemini\antigravity\pl
+ayground\sonic-orbit\node_modul
+es\tsx\dist\register-D46fvsV_.c
+js:3:1104)
+    at Module.load (node:intern
+al/modules/cjs/loader:1427:32)
+    at Module._load (node:inter
+nal/modules/cjs/loader:1250:12)
+    at 
+TracingChannel.traceSync (node:
+diagnostics_channel:322:14)
+    at wrapModuleLoad (node:int
+ernal/modules/cjs/loader:235:24
+)
+    at cjsLoader (node:internal
+/modules/esm/translators:316:5)
+ {
+  clientVersion: '7.4.2',
+  errorCode: undefined,
+  retryable: undefined
+}
+
+Node.js v24.4.1

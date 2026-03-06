@@ -1,0 +1,259 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CourseLevel {
+  BACHELORS
+  MASTERS
+  PHD
+  DIPLOMA
+  CERTIFICATE
+  FOUNDATION
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  PROCESSING
+  CONVERTED
+  CLOSED
+}
+
+enum ContentType {
+  PAGE_HERO
+  PAGE_SECTION
+  GENERAL
+}
+
+model Country {
+  id               String       @id @default(cuid())
+  name             String
+  slug             String       @unique
+  description      String       @db.Text
+  imageUrl         String
+  flagUrl          String?
+  currency         String?
+  language         String?
+  capitalCity      String?
+  visaRequirements String       @db.Text
+  
+  // New JSON content for rich country details pages
+  infographicData  Json?
+  
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  universities     University[]
+}
+
+model University {
+  id              String  @id @default(cuid())
+  name            String
+  slug            String  @unique
+  location        String
+  ranking         String?
+  website         String?
+  tuitionEstimate String
+  imageUrl        String
+  description     String  @db.Text
+  countryId       String
+  country         Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  // Relations
+  courses      Course[]
+  englishReqs  EnglishTestRequirement[]
+  scholarships Scholarship[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  id           String      @id @default(cuid())
+  title        String
+  level        CourseLevel
+  duration     String
+  description  String      @db.Text
+  universityId String
+  university   University  @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id              String  @id @default(cuid())
+  name            String
+  email           String
+  phone           String
+  desiredCountry  String
+  programInterest String?
+  message         String? @db.Text
+
+  // CRM specifics
+  status   LeadStatus @default(NEW)
+  crmNotes String?    @db.Text
+
+  // UTMs
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmContext  String? // e.g., page where it was submitted
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model EnglishTestRequirement {
+  id           String  @id @default(cuid())
+  testName     String
+  minimumScore String
+  acceptsMOI   Boolean @default(false)
+  notes        String? @db.Text
+
+  universityId String
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Scholarship {
+  id          String    @id @default(cuid())
+  name        String
+  amount      String
+  description String    @db.Text
+  criteria    String?   @db.Text
+  deadline    DateTime?
+
+  universityId String
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ----------------------------------------------------------------------------
+// Standalone CMS Content Models (For the 12 UI UI Sections)
+// ----------------------------------------------------------------------------
+
+model Counselor {
+  id       String  @id @default(cuid())
+  name     String
+  role     String // e.g., "Senior UK Admissions Counselor"
+  bio      String  @db.Text
+  imageUrl String
+  email    String?
+  phone    String?
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id             String  @id @default(cuid())
+  studentName    String
+  studentCourse  String // e.g., "MSc Data Science"
+  universityName String
+  targetCountry  String
+  quote          String  @db.Text
+  imageUrl       String?
+  featured       Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FAQ {
+  id       String  @id @default(cuid())
+  question String
+  answer   String  @db.Text
+  category String // e.g., "UK Visas", "General", "Finances"
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id          String @id @default(cuid())
+  title       String // e.g., "End-to-End Application Support", "Visa Assistance"
+  slug        String @unique
+  description String @db.Text
+  icon        String // Identifier for Lucide icons or image path
+  order       Int    @default(0) // Control display order on frontend
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Content {
+  id       String      @id @default(cuid())
+  key      String      @unique // e.g., "home-hero-title", "uk-page-subtitle"
+  type     ContentType @default(GENERAL)
+  title    String? // Optional heading 
+  body     String      @db.Text
+  imageUrl String? // Optional connected image
+  linkUrl  String? // Optional connected link (like a CTA dest)
+  linkText String?
+  isActive Boolean     @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ----------------------------------------------------------------------------
+// Agency Certifications & IELTS Booking
+// ----------------------------------------------------------------------------
+
+model Certification {
+  id          String    @id @default(cuid())
+  title       String // e.g., "British Council Certified Agent"
+  issuingBody String // e.g., "British Council", "ICEF"
+  description String    @db.Text
+  imageUrl    String // Certificate image
+  dateIssued  DateTime?
+  isActive    Boolean   @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model IELTSInfo {
+  id           String    @id @default(cuid())
+  testType     String // e.g., "IELTS Academic", "IELTS General Training", "IELTS UKVI"
+  description  String    @db.Text
+  fee          String // e.g., "BDT 22,500", "$250"
+  venue        String // e.g., "British Council, Dhaka"
+  requirements String    @db.Text // What candidates need to bring/do
+  nextDate     DateTime? // Next available test date
+  imageUrl     String? // Optional image
+  isActive     Boolean   @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  type      String   @default("general") // "event", "offer", "scholarship", "general"
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

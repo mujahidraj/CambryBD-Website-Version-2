@@ -1,0 +1,64 @@
+﻿­ƒº╣ Clearing existing data...
+node.exe : ÔØî Seed error: 
+PrismaClientKnownRequestError: 
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:\User
+s\RAJ\AppData\Roaming\np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
+    + CategoryInfo          :  
+   NotSpecified: (ÔØî Seed er  
+  ror:...nRequestError: :Str   
+ ing) [], RemoteException
+    + FullyQualifiedErrorId :  
+   NativeCommandError
+ 
+Invalid 
+`prisma.course.deleteMany()` 
+invocation in
+C:\Users\RAJ\.gemini\antigravit
+y\playground\sonic-orbit\prisma
+\seed.ts:7:25
+
+  4 
+  5 async function main() {
+  6     console.log("ƒº╣ 
+Clearing existing data...");
+ÔåÆ 7     await 
+prisma.course.deleteMany(
+
+    at zr.handleRequestError (C
+:\Users\RAJ\.gemini\antigravity
+\playground\sonic-orbit\node_mo
+dules\@prisma\client\src\runtim
+e\RequestHandler.ts:237:13)
+    at 
+zr.handleAndLogRequestError (C:
+\Users\RAJ\.gemini\antigravity\
+playground\sonic-orbit\node_mod
+ules\@prisma\client\src\runtime
+\RequestHandler.ts:183:12)
+    at zr.request (C:\Users\RAJ
+\.gemini\antigravity\playground
+\sonic-orbit\node_modules\@pris
+ma\client\src\runtime\RequestHa
+ndler.ts:152:12)
+    at process.processTicksAndR
+ejections (node:internal/proces
+s/task_queues:105:5)
+    at async a (C:\Users\RAJ\.g
+emini\antigravity\playground\so
+nic-orbit\node_modules\@prisma\
+client\src\runtime\getPrismaCli
+ent.ts:808:24)
+    at async main (C:\Users\RAJ
+\.gemini\antigravity\playground
+\sonic-orbit\prisma\seed.ts:7:5
+) {
+  code: 'ECONNREFUSED',
+  meta: { modelName: 'Course' 
+},
+  clientVersion: '7.4.2'
+}

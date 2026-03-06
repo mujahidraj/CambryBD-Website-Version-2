@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import NavigationLoader from "@/components/Providers/NavigationLoader";
 import ProgressBarProvider from "@/components/Providers/ProgressBarProvider";
@@ -31,7 +32,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="overflow-x-hidden" suppressHydrationWarning>
         <ProgressBarProvider>
-          <NavigationLoader />
+          <Suspense fallback={null}>
+            <NavigationLoader />
+          </Suspense>
           {children}
         </ProgressBarProvider>
       </body>

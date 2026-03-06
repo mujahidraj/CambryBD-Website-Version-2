@@ -164,33 +164,32 @@ export default async function CountryDetailPage({ params }: { params: Promise<{ 
 
                     {/* Timeline */}
                     {infographic.timeline && infographic.timeline.length > 0 && (
-                        <section className="py-16 bg-white relative overflow-hidden">
+                        <section className="py-8 bg-white relative overflow-hidden">
                             <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--brand-yellow)]/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                                 <FadeIn direction="up">
-                                    <div className="text-center mb-12">
+                                    <div className="text-center mb-8">
                                         <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Process</span>
-                                        <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Application Timeline</h2>
-                                        <p className="text-gray-500 mt-4 max-w-2xl mx-auto text-lg">A seamless step-by-step guide to secure your admission and visa.</p>
+                                        <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0A1628] mt-2 tracking-tight">Application Timeline</h2>
                                     </div>
                                 </FadeIn>
                                 <div className="max-w-4xl mx-auto">
-                                    <div className="relative space-y-6 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[50%] md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-transparent before:via-blue-100 before:to-transparent">
+                                    <div className="relative space-y-4 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[50%] md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-transparent before:via-blue-100 before:to-transparent">
                                         {infographic.timeline.map((item: any, idx: number) => (
                                             <FadeIn key={idx} direction={idx % 2 === 0 ? "right" : "left"} delay={idx * 0.1}>
                                                 <div className={`relative flex items-center justify-between md:justify-normal ${idx % 2 === 0 ? "md:flex-row-reverse" : ""} group is-active`}>
-                                                    <div className={`flex items-center justify-center w-12 h-12 rounded-full border-4 border-white bg-gradient-to-br from-[var(--brand-blue)] to-[#0A1628] text-white shadow-xl shrink-0 z-10 group-hover:scale-110 transition-transform duration-300 md:absolute md:left-1/2 md:-translate-x-1/2`}>
-                                                        <span className="font-bold text-lg">{item.step}</span>
+                                                    <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-gradient-to-br from-[var(--brand-blue)] to-[#0A1628] text-white shadow-xl shrink-0 z-10 group-hover:scale-110 transition-transform duration-300 md:absolute md:left-1/2 md:-translate-x-1/2`}>
+                                                        <span className="font-bold text-sm">{item.step}</span>
                                                     </div>
                                                     
-                                                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-8 rounded-3xl bg-white shadow-lg shadow-blue-900/5 border border-gray-100 group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-1 group-hover:border-[var(--brand-yellow)]/30 relative overflow-hidden">
+                                                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-5 rounded-3xl bg-white shadow-lg shadow-blue-900/5 border border-gray-100 group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-1 group-hover:border-[var(--brand-yellow)]/30 relative overflow-hidden">
                                                         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[var(--brand-yellow)]/5 to-transparent rounded-full blur-xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity" />
                                                         <div className="relative z-10">
-                                                            <div className="flex items-center justify-between mb-3">
-                                                                <h3 className="font-bold text-xl text-[#0A1628]">{item.title}</h3>
+                                                            <div className="flex items-center justify-between mb-2">
+                                                                <h3 className="font-bold text-lg text-[#0A1628]">{item.title}</h3>
                                                             </div>
-                                                            <p className="text-sm font-bold text-[var(--brand-yellow)] flex items-center gap-2 mb-2 uppercase tracking-wider">
-                                                                <Clock className="w-4 h-4" /> {item.duration}
+                                                            <p className="text-xs font-bold text-[var(--brand-yellow)] flex items-center gap-1.5 uppercase tracking-wider">
+                                                                <Clock className="w-3.5 h-3.5" /> {item.duration}
                                                             </p>
                                                         </div>
                                                     </div>

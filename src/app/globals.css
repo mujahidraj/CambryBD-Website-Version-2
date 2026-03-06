@@ -43,6 +43,13 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* 
+   * A rational approach to reducing the text size globally.
+   * By default, browsers use 16px (1rem = 16px).
+   * By shrinking it to 14.5px, every Tailwind 'rem' class (text size, padding, margins)
+   * shrinks beautifully by roughly ~9%, keeping all UI proportions perfect.
+   */
+  font-size: 14.5px; 
 }
 
 /* ===== Animation Keyframes ===== */

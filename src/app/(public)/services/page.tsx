@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText, MessageCircle, Plane, Home, BookOpen, CreditCard, ArrowRight, CheckCircle2, Shield, Users, GraduationCap, Award, Globe } from "lucide-react";

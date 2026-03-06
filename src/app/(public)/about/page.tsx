@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Target, Eye, Heart, Users, Award, Globe, GraduationCap, Clock, Shield, CheckCircle2, Star } from "lucide-react";

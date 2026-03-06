@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { Mail, Phone, MapPin, Clock, MessageCircle, ArrowRight } from "lucide-react";
 import LeadForm from "@/components/LeadForm";

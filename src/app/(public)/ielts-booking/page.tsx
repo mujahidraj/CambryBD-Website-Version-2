@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CalendarCheck, MapPin, CreditCard, Clock, FileText, CheckCircle2, ArrowRight, Info, Users } from "lucide-react";

@@ -356,16 +356,18 @@ export default async function HomePage() {
                     </FadeIn>
                     <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
                         {[
-                            { name: "British Council", badge: "🏛️" },
-                            { name: "IELTS Official", badge: "📝" },
-                            { name: "IDP Education", badge: "🌐" },
-                            { name: "ICEF Certified", badge: "✅" },
-                            { name: "Universities UK", badge: "🎓" },
-                            { name: "Study Australia", badge: "🦘" },
+                            { name: "British Council", logo: "https://www.britishcouncil.in/profiles/solas2/themes/solas_ui/images/desktop/britishcouncil_indigo_logo.jpg" },
+                            { name: "IELTS Official", logo: "https://1000logos.net/wp-content/uploads/2021/03/IELTS-logo.jpg" },
+                            { name: "IDP Education", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThDu-SQB0s3K7sjA6GR_cpRmqNinNDHnEd1A&s" },
+                            { name: "ICEF Certified", logo: "https://www.icef.com/academy/wp-content/uploads/2020/02/ICEF-Academy-Logo-Blue.png" },
+                            { name: "Universities UK", logo: "https://images.seeklogo.com/logo-png/14/1/universities-uk-logo-png_seeklogo-145932.png" },
+                            { name: "Cambry IELTS Admission", logo: "data:image/jpeg;base64,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" },
                         ].map((partner) => (
                             <StaggerItem key={partner.name}>
-                                <div className="flex flex-col items-center justify-center gap-4 p-8 bg-white border border-gray-100 rounded-2xl hover:shadow-xl hover:shadow-[var(--brand-blue)]/5 transition-all duration-300 hover:-translate-y-1 cursor-default h-full">
-                                    <span className="text-4xl drop-shadow-sm">{partner.badge}</span>
+                                <div className="flex flex-col items-center justify-center gap-4 p-6 bg-white border border-gray-100 rounded-2xl hover:shadow-xl hover:shadow-[var(--brand-blue)]/5 transition-all duration-300 hover:-translate-y-1 cursor-default h-full">
+                                    <div className="h-12 flex items-center justify-center">
+                                        <img src={partner.logo} alt={partner.name} className="max-h-full max-w-full object-contain mix-blend-multiply" />
+                                    </div>
                                     <span className="text-sm font-bold text-[#0A1628] text-center">{partner.name}</span>
                                 </div>
                             </StaggerItem>
@@ -378,70 +380,76 @@ export default async function HomePage() {
             <UniversityMarquee universities={universities.length > 0
                 ? universities.map(u => ({ name: u.name, imageUrl: u.imageUrl }))
                 : [
-                    { name: "University of Oxford", imageUrl: "https://logo.clearbit.com/ox.ac.uk" }, 
-                    { name: "Imperial College London", imageUrl: "https://logo.clearbit.com/imperial.ac.uk" }, 
+                    { name: "University of Oxford", imageUrl: "https://logo.clearbit.com/ox.ac.uk" },
+                    { name: "Imperial College London", imageUrl: "https://logo.clearbit.com/imperial.ac.uk" },
                     { name: "University of Toronto", imageUrl: "https://logo.clearbit.com/utoronto.ca" }
-                  ]
+                ]
             } />
 
-            {/* ===== SECTION 14: COUNSELORS & FAQ ===== */}
+            {/* ===== SECTION 14: COUNSELORS ===== */}
             <section className="py-24 bg-white relative overflow-hidden">
                 <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-50/80 rounded-full blur-[100px] translate-y-1/2 translate-x-1/3 pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-16">
-                        {/* Counselors */}
-                        <div>
-                            <FadeIn direction="up">
-                                <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Our Team</span>
-                                <h2 className="text-4xl font-extrabold text-[#0A1628] mt-3 mb-10 tracking-tight">Meet Our Counselors</h2>
-                            </FadeIn>
-                            <StaggerContainer className="grid grid-cols-2 gap-6">
-                                {(counselors.length > 0 ? counselors.slice(0, 4) : [
-                                    { name: "Sarah Ahmed", role: "UK Counselor", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
-                                    { name: "James Wilson", role: "Canada Specialist", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
-                                ]).map((c: any) => (
-                                    <StaggerItem key={c.name}>
-                                        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-lg shadow-black/5 hover:shadow-xl hover:-translate-y-1 transition-all group">
-                                            <div className="relative h-48 overflow-hidden z-10">
-                                                <img src={c.imageUrl} alt={c.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                            </div>
-                                            <div className="p-5 text-center bg-white relative z-20">
-                                                <p className="font-bold text-[#0A1628] text-lg">{c.name}</p>
-                                                <p className="text-sm font-medium text-[var(--brand-yellow)] mt-1">{c.role}</p>
-                                            </div>
-                                        </div>
-                                    </StaggerItem>
-                                ))}
-                            </StaggerContainer>
-                        </div>
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <FadeIn direction="up">
+                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Our Team</span>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Meet Our Counselors</h2>
+                            <p className="text-gray-500 mt-4 text-lg">Talk to our experts today and start your journey.</p>
+                        </FadeIn>
+                    </div>
+                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {(counselors.length > 0 ? counselors.slice(0, 4) : [
+                            { name: "Sarah Ahmed", role: "UK Counselor", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
+                            { name: "James Wilson", role: "Canada Specialist", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
+                        ]).map((c: any) => (
+                            <StaggerItem key={c.name}>
+                                <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-lg shadow-black/5 hover:shadow-xl hover:-translate-y-1 transition-all group">
+                                    <div className="relative h-64 overflow-hidden z-10">
+                                        <img src={c.imageUrl} alt={c.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                    </div>
+                                    <div className="p-6 text-center bg-white relative z-20">
+                                        <p className="font-bold text-[#0A1628] text-xl">{c.name}</p>
+                                        <p className="text-sm font-medium text-[var(--brand-yellow)] mt-1">{c.role}</p>
+                                    </div>
+                                </div>
+                            </StaggerItem>
+                        ))}
+                    </StaggerContainer>
+                </div>
+            </section>
 
-                        {/* FAQ */}
-                        <div>
-                            <FadeIn direction="up" delay={0.2}>
-                                <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">FAQ</span>
-                                <h2 className="text-4xl font-extrabold text-[#0A1628] mt-3 mb-10 tracking-tight">Common Questions</h2>
+            {/* ===== SECTION 15: FAQ ===== */}
+            <section className="py-24 bg-[#F8F9FA] relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[var(--brand-yellow)]/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-16">
+                        <FadeIn direction="up">
+                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">FAQ</span>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Common Questions</h2>
+                            <p className="text-gray-500 mt-4 text-lg">Everything you need to know about the process.</p>
+                        </FadeIn>
+                    </div>
+                    <div className="space-y-4">
+                        {(faqs.length > 0 ? faqs.slice(0, 5) : [
+                            { question: "Can I apply without IELTS?", answer: "Many universities accept MOI (Medium of Instruction) or alternative tests like Duolingo depending on the country." },
+                            { question: "What is the study gap limit?", answer: "Most countries accept study gaps with proper justification. UK is generally lenient with 5-10+ year gaps." },
+                            { question: "How long does the process take?", answer: "From initial consultation to receiving your offer letter, it typically takes 4-8 weeks depending on the university and program." },
+                            { question: "Is the consultation really free?", answer: "Yes! Our initial consultation is completely free with no obligations. We only charge service fees after you decide to proceed." },
+                        ]).map((faq: any, i: number) => (
+                            <FadeIn direction="up" delay={0.1 * i} key={i}>
+                                <details className="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                                    <summary className="flex items-center justify-between p-6 cursor-pointer text-lg font-bold text-[#0A1628] hover:text-[var(--brand-yellow)] transition-colors list-none [&::-webkit-details-marker]:hidden">
+                                        {faq.question}
+                                        <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shrink-0 group-open:bg-[var(--brand-yellow)] group-open:text-white transition-colors duration-300">
+                                            <span className="text-xl leading-none font-medium transform group-open:rotate-45 transition-transform duration-300">+</span>
+                                        </div>
+                                    </summary>
+                                    <div className="px-6 pb-8 text-base text-gray-500 leading-relaxed pt-2">
+                                        {faq.answer}
+                                    </div>
+                                </details>
                             </FadeIn>
-                            <div className="space-y-4">
-                                {(faqs.length > 0 ? faqs.slice(0, 5) : [
-                                    { question: "Can I apply without IELTS?", answer: "Many universities accept MOI (Medium of Instruction) or alternative tests like Duolingo depending on the country." },
-                                    { question: "What is the study gap limit?", answer: "Most countries accept study gaps with proper justification. UK is generally lenient with 5-10+ year gaps." },
-                                    { question: "How long does the process take?", answer: "From initial consultation to receiving your offer letter, it typically takes 4-8 weeks depending on the university and program." },
-                                    { question: "Is the consultation really free?", answer: "Yes! Our initial consultation is completely free with no obligations. We only charge service fees after you decide to proceed." },
-                                ]).map((faq: any, i: number) => (
-                                    <FadeIn direction="up" delay={0.3 + (i * 0.1)} key={i}>
-                                        <details className="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                                            <summary className="flex items-center justify-between p-6 cursor-pointer text-[15px] font-bold text-[#0A1628] hover:text-[var(--brand-yellow)] transition-colors">
-                                                {faq.question}
-                                                <span className="text-gray-400 group-open:rotate-45 transition-transform text-2xl font-light">+</span>
-                                            </summary>
-                                            <div className="px-6 pb-6 text-[15px] text-gray-500 leading-relaxed group-open:animate-fade-in">
-                                                {faq.answer}
-                                            </div>
-                                        </details>
-                                    </FadeIn>
-                                ))}
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>

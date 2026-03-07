@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle, Search, FileText, Mail, CheckCircle, Plane, PartyPopper } from "lucide-react";
+import { MessageCircle, Search, FileText, Mail, CheckCircle, Plane, PartyPopper, ArrowRight } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/MotionWrappers";
 
 const steps = [
@@ -27,24 +27,55 @@ export default function JourneyStepper() {
                     </div>
                 </FadeIn>
 
-                <div className="relative">
-                    {/* Connector line */}
-                    <div className="hidden lg:block absolute top-[2.5rem] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent via-blue-100 to-transparent pointer-events-none" />
+                <div className="relative mt-10">
+                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-16 lg:gap-y-20 gap-x-8 relative z-10 p-4">
+                        {steps.map((step, i) => {
+                            let arrowClass = "hidden sm:flex";
+                            if ((i + 1) % 4 === 0) arrowClass = "hidden";
+                            else if ((i + 1) % 2 === 0) arrowClass = "hidden lg:flex";
 
-                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-8 lg:gap-4 relative z-10">
-                        {steps.map((step, i) => (
-                            <StaggerItem key={step.title} className="flex flex-col items-center text-center group">
-                                <div className="relative w-20 h-20 rounded-2xl bg-white border hover:border-transparent border-gray-100 shadow-xl shadow-blue-900/5 flex items-center justify-center mb-6 group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:shadow-[var(--brand-yellow)]/10 transition-all duration-300 z-10">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-blue)] to-[#0A1628] opacity-0 rounded-2xl group-hover:opacity-100 transition-opacity duration-300" />
-                                    <step.icon className="w-8 h-8 text-[var(--brand-blue)] group-hover:text-white relative z-10 transition-colors duration-300" />
-                                    <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-[var(--brand-yellow)] to-[var(--brand-yellow)] text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-md">
-                                        {i + 1}
-                                    </div>
+                            return (
+                                <div key={step.title} className="relative">
+                                    <StaggerItem className="flex flex-col items-center text-center group h-full">
+                                        <div className="relative w-24 h-24 sm:w-20 sm:h-20 rounded-2xl bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-center mb-6 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(255,192,0,0.15)] transition-all duration-500 z-10">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-[#0A1628] to-[var(--brand-blue)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                                            <step.icon className="w-10 h-10 sm:w-8 sm:h-8 text-[var(--brand-blue)] group-hover:text-white relative z-10 transition-colors duration-500 transform group-hover:scale-110" />
+                                            <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-[var(--brand-yellow)] to-yellow-500 text-[#0A1628] flex items-center justify-center font-extrabold text-sm border-2 border-white shadow-lg z-20 group-hover:scale-110 group-hover:from-white group-hover:to-white transition-all duration-500">
+                                                {i + 1}
+                                            </div>
+                                        </div>
+                                        <h3 className="font-bold text-lg sm:text-[15px] text-[#0A1628] mb-2 group-hover:text-[var(--brand-yellow)] transition-colors px-2 relative z-10">{step.title}</h3>
+                                        <p className="text-sm text-gray-500 leading-relaxed px-4 sm:px-2 relative z-10">{step.desc}</p>
+                                    </StaggerItem>
+
+                                    {/* Desktop / Tablet Right Arrow */}
+                                    {i < steps.length - 1 && (
+                                        <div className={`absolute top-12 sm:top-10 -right-8 w-16 h-8 justify-center items-center z-0 ${arrowClass}`}>
+                                            <div className="relative flex items-center w-full h-full">
+                                                <div className="absolute inset-0 flex items-center">
+                                                    <div className="w-full border-t-2 border-dashed border-[var(--brand-yellow)]/40"></div>
+                                                </div>
+                                                <div className="absolute right-0 flex items-center justify-center animate-[pulse_2s_infinite] sm:translate-x-2">
+                                                    <ArrowRight className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--brand-yellow)] drop-shadow-[0_0_8px_rgba(255,192,0,0.5)]" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Mobile Down Arrow */}
+                                    {i < steps.length - 1 && (
+                                        <div className="sm:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 h-10 flex flex-col justify-center items-center z-0">
+                                            <div className="absolute inset-0 flex justify-center">
+                                                <div className="h-full border-l-2 border-dashed border-[var(--brand-yellow)]/40"></div>
+                                            </div>
+                                            <div className="absolute bottom-0 flex items-center justify-center animate-[pulse_2s_infinite] translate-y-3">
+                                                <ArrowRight className="w-6 h-6 text-[var(--brand-yellow)] rotate-90 drop-shadow-[0_0_8px_rgba(255,192,0,0.5)]" />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                                <h3 className="font-bold text-[15px] text-[#0A1628] mb-2 group-hover:text-[var(--brand-yellow)] transition-colors">{step.title}</h3>
-                                <p className="text-sm text-gray-500 leading-relaxed px-2">{step.desc}</p>
-                            </StaggerItem>
-                        ))}
+                            );
+                        })}
                     </StaggerContainer>
                 </div>
             </div>

@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const dynamic = "force-dynamic";
 import Link from "next/link";
-import { ArrowRight, GraduationCap, Globe, Users, Award, CheckCircle2, Star, Briefcase, Plane, Home, Shield, TrendingUp, Clock, Headphones, Target } from "lucide-react";
+import { ArrowRight, GraduationCap, Globe, Users, Award, CheckCircle2, Star, Briefcase, Plane, Home, Shield, TrendingUp, Clock, Headphones, Target, Sparkles } from "lucide-react";
 import { getTopUniversities } from "@/actions/universities";
 import { getCountries } from "@/actions/countries";
 import { getFeaturedTestimonials } from "@/actions/testimonials";
 import { getCounselors } from "@/actions/counselors";
 import { getFaqs } from "@/actions/faqs";
 import { getActiveAnnouncements } from "@/actions/announcements";
+import PageHero from "@/components/PageHero";
 import LeadForm from "@/components/LeadForm";
 import TrustBanner from "@/components/TrustBanner";
 import JourneyStepper from "@/components/JourneyStepper";
@@ -28,7 +30,7 @@ export default async function HomePage() {
 
     try {
         [universities, countries, testimonials, counselors, faqs, announcements] = await Promise.all([
-            getTopUniversities(100), // Get all so the Finder can filter successfully by all countries
+            getTopUniversities(100),
             getCountries(),
             getFeaturedTestimonials(),
             getCounselors(),
@@ -39,12 +41,6 @@ export default async function HomePage() {
         // DB not available yet
     }
 
-    const stats = [
-        { value: "500+", label: "Students Placed", icon: Users },
-        { value: "50+", label: "Partner Universities", icon: GraduationCap },
-        { value: "5", label: "Countries", icon: Globe },
-        { value: "98%", label: "Visa Success Rate", icon: Award },
-    ];
     const destinations = [
         { name: "United Kingdom", slug: "united-kingdom", flagUrl: "https://flagcdn.com/w80/gb.png", fact: "2-year post-study work visa", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800" },
         { name: "Australia", slug: "australia", flagUrl: "https://flagcdn.com/w80/au.png", fact: "2-4 year post-study work rights", image: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800" },
@@ -61,10 +57,10 @@ export default async function HomePage() {
     });
 
     const valueProps = [
-        { icon: Briefcase, title: "End-to-End Support", desc: "From course selection to arrival at your university, we handle everything." },
-        { icon: Award, title: "Scholarship Guidance", desc: "Access exclusive scholarships and financial aid worth thousands." },
-        { icon: Plane, title: "Visa Assistance", desc: "98% visa approval rate with expert documentation and interview prep." },
-        { icon: Home, title: "Accommodation Help", desc: "Safe, affordable housing near your campus arranged before arrival." },
+        { icon: Briefcase, title: "End-to-End Support", desc: "From course selection to arrival at your university, we handle everything.", gradient: "from-blue-500 to-cyan-400" },
+        { icon: Award, title: "Scholarship Guidance", desc: "Access exclusive scholarships and financial aid worth thousands.", gradient: "from-amber-500 to-orange-400" },
+        { icon: Plane, title: "Visa Assistance", desc: "98% visa approval rate with expert documentation and interview prep.", gradient: "from-emerald-500 to-teal-400" },
+        { icon: Home, title: "Accommodation Help", desc: "Safe, affordable housing near your campus arranged before arrival.", gradient: "from-purple-500 to-violet-400" },
     ];
 
     const processSteps = [
@@ -76,86 +72,67 @@ export default async function HomePage() {
 
     return (
         <>
-            {/* ===== SECTION 1: FULL-WINDOW HERO WITH IMAGE ===== */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1920&q=80"
-                        alt="Students on university campus"
-                        className="w-full h-full object-cover scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#0A1628]/95 via-[#0A1628]/85 to-blue-900/60" />
+            {/* ===== HERO ===== */}
+            <PageHero
+                badge="Trusted by 500+ Students Worldwide"
+                badgeIcon={GraduationCap}
+                title={<>Your Global Future<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400">Starts Here</span></>}
+                subtitle="Cambry is your trusted International Admission Centre. We guide you from course selection to visa approval across top universities in the UK, Australia, Canada, Malaysia & New Zealand."
+                backgroundImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1920&q=80"
+                backgroundAlt="Students on university campus"
+                cta={{ label: "Book Free Consultation", href: "/contact" }}
+            >
+                {/* Floating stats */}
+                <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl mx-auto">
+                    {[
+                        { value: "500+", label: "Students Placed", icon: Users },
+                        { value: "50+", label: "Partner Universities", icon: GraduationCap },
+                        { value: "5", label: "Countries", icon: Globe },
+                        { value: "98%", label: "Visa Success", icon: Award },
+                    ].map((stat) => (
+                        <div key={stat.label} className="bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] rounded-2xl px-4 py-5 text-center hover:bg-white/[0.1] transition-colors duration-300">
+                            <stat.icon className="w-5 h-5 text-amber-400 mx-auto mb-2" />
+                            <p className="text-2xl font-extrabold text-white">{stat.value}</p>
+                            <p className="text-[11px] text-blue-200/60 font-semibold uppercase tracking-widest mt-1">{stat.label}</p>
+                        </div>
+                    ))}
                 </div>
-                <div className="absolute inset-0 opacity-20 mix-blend-screen pointer-events-none">
-                    <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-500 rounded-full blur-[128px]" />
-                    <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[var(--brand-yellow)] rounded-full blur-[128px]" />
-                </div>
-
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 w-full z-10">
-                    <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-                        <FadeIn direction="up">
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-sm text-blue-200 mb-8 shadow-2xl">
-                                <Star className="w-4 h-4 text-[var(--brand-yellow)]" />
-                                Trusted by 500+ Students Worldwide
-                            </div>
-                        </FadeIn>
-                        <FadeIn direction="up" delay={0.1}>
-                            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-                                Your Global Future <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-yellow)] to-[var(--brand-yellow)]">Starts Here</span>
-                            </h1>
-                        </FadeIn>
-                        <FadeIn direction="up" delay={0.2}>
-                            <p className="mt-6 text-xl text-gray-300 leading-relaxed">
-                                Cambry is your trusted International Admission Centre. We guide you from course selection to visa approval across top universities in the UK, Australia, Canada, Malaysia & New Zealand.
-                            </p>
-                        </FadeIn>
-                        <FadeIn direction="up" delay={0.3}>
-                            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                                <Link
-                                    href="/contact"
-                                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[var(--brand-yellow)] to-[var(--brand-yellow)] text-white font-bold rounded-full hover:shadow-[0_0_30px_rgba(232,114,12,0.4)] hover:scale-105 transition-all duration-300"
-                                >
-                                    Book Free Consultation <ArrowRight className="w-5 h-5" />
-                                </Link>
-                                <Link
-                                    href="/destinations"
-                                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-2xl text-white font-bold rounded-full hover:bg-white/20 border border-white/20 hover:scale-105 transition-all duration-300"
-                                >
-                                    Explore Destinations
-                                </Link>
-                            </div>
-                        </FadeIn>
-                    </div>
-                </div>
-            </section>
+            </PageHero>
 
             {/* ===== ANNOUNCEMENT MARQUEE ===== */}
             <AnnouncementMarquee announcements={announcements} />
 
-            {/* ===== SECTION 2: TRUST & AUTHORITY BANNER ===== */}
+            {/* ===== TRUST BANNER ===== */}
             <TrustBanner />
 
-            {/* ===== SECTION 3: CORE VALUE PROPOSITION GRID ===== */}
-            <section className="py-24 bg-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+            {/* ===== WHY CHOOSE US ===== */}
+            <section className="py-28 bg-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-blue-50/80 to-purple-50/30 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-50/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <FadeIn direction="up">
-                        <div className="text-center mb-16">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Why Choose Us</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Why Students Choose Cambry</h2>
-                            <p className="text-gray-500 mt-4 max-w-2xl mx-auto text-lg">We make studying abroad simple, affordable, and stress-free with our comprehensive premium support services.</p>
+                        <div className="text-center mb-20">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-100 text-amber-600 text-xs font-bold uppercase tracking-widest mb-6">
+                                <Sparkles className="w-3.5 h-3.5" /> Why Choose Us
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] tracking-tight">
+                                Why Students Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-blue)] to-[var(--accent)]">Cambry</span>
+                            </h2>
+                            <p className="text-gray-500 mt-5 max-w-2xl mx-auto text-lg leading-relaxed">We make studying abroad simple, affordable, and stress-free with our comprehensive premium support services.</p>
                         </div>
                     </FadeIn>
-                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {valueProps.map((item) => (
                             <StaggerItem key={item.title}>
-                                <HoverCard className="bg-white border border-gray-100/50 rounded-2xl p-8 shadow-xl shadow-blue-900/5 hover:shadow-2xl hover:shadow-blue-900/10 transition-all h-full">
-                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center mb-6 text-[var(--brand-blue)]">
-                                        <item.icon className="w-7 h-7" />
+                                <HoverCard className="bg-white border border-gray-100/80 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500 h-full group relative overflow-hidden">
+                                    <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-[0.06] rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 transition-opacity duration-500`} />
+                                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                                        <item.icon className="w-7 h-7 text-white" />
                                     </div>
                                     <h3 className="font-bold text-[#0A1628] text-xl mb-3">{item.title}</h3>
-                                    <p className="text-gray-500 leading-relaxed">{item.desc}</p>
+                                    <p className="text-gray-500 leading-relaxed text-[15px]">{item.desc}</p>
                                 </HoverCard>
                             </StaggerItem>
                         ))}
@@ -163,75 +140,77 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* ===== SECTION 4: HOW IT WORKS — VISUAL PROCESS ===== */}
-            <section className="py-24 bg-[#0A1628] relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=20')] opacity-5 bg-cover bg-center mix-blend-screen" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
+            {/* ===== HOW IT WORKS ===== */}
+            <section className="py-28 bg-[#0A1628] relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=20')] opacity-[0.03] bg-cover bg-center" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500/[0.07] rounded-full blur-[150px] pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <FadeIn direction="up">
                         <div className="text-center mb-20">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">How It Works</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-3 tracking-tight">Your Journey in 4 Simple Steps</h2>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.08] text-amber-400 text-xs font-bold uppercase tracking-widest mb-6">
+                                <Target className="w-3.5 h-3.5" /> How It Works
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">Your Journey in <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-300">4 Simple Steps</span></h2>
                         </div>
                     </FadeIn>
-                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+
+                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {processSteps.map((item, i) => (
                             <StaggerItem key={item.step} className="relative text-center group">
-                                <div className="w-24 h-24 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center mx-auto mb-8 group-hover:-translate-y-2 group-hover:bg-[var(--brand-yellow)]/20 group-hover:border-[var(--brand-yellow)]/50 transition-all duration-300 shadow-2xl">
-                                    <item.icon className="w-10 h-10 text-[var(--brand-yellow)] group-hover:text-white transition-colors" />
-                                </div>
-                                <div className="absolute top-0 right-1/4 lg:right-auto lg:left-[55%] w-8 h-8 rounded-full bg-gradient-to-br from-[var(--brand-yellow)] to-[var(--brand-yellow)] flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-[var(--brand-yellow)]/30">
-                                    {item.step}
-                                </div>
-                                <h3 className="text-white font-bold text-xl mb-3">{item.title}</h3>
-                                <p className="text-gray-400 leading-relaxed px-2">{item.desc}</p>
+                                {/* Connector line */}
                                 {i < processSteps.length - 1 && (
-                                    <div className="hidden lg:block absolute top-12 left-[calc(50%+60px)] w-[calc(100%-120px)] h-[2px] bg-gradient-to-r from-[var(--brand-yellow)]/40 via-[var(--brand-yellow)]/20 to-transparent" />
+                                    <div className="hidden lg:block absolute top-14 left-[calc(50%+50px)] w-[calc(100%-100px)] h-px bg-gradient-to-r from-white/20 via-amber-400/30 to-white/20" />
                                 )}
+
+                                <div className="relative inline-flex flex-col items-center">
+                                    <div className="relative w-28 h-28 rounded-3xl bg-white/[0.04] backdrop-blur-md border border-white/[0.08] flex items-center justify-center mx-auto mb-8 group-hover:bg-white/[0.08] group-hover:border-amber-400/30 group-hover:-translate-y-2 transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                        <item.icon className="w-10 h-10 text-amber-400 group-hover:scale-110 transition-transform duration-300" />
+                                        <div className="absolute -top-3 -right-3 w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white font-extrabold text-sm shadow-[0_4px_15px_rgba(245,158,11,0.4)]">
+                                            {item.step}
+                                        </div>
+                                    </div>
+                                    <h3 className="text-white font-bold text-xl mb-3">{item.title}</h3>
+                                    <p className="text-blue-200/50 leading-relaxed px-2 text-[15px]">{item.desc}</p>
+                                </div>
                             </StaggerItem>
                         ))}
                     </StaggerContainer>
                 </div>
             </section>
 
-            {/* ===== SECTION 5: INTERACTIVE TOP DESTINATIONS ===== */}
-            <section className="py-24 bg-[#F8F9FA] relative">
+            {/* ===== TOP DESTINATIONS ===== */}
+            <section className="py-28 bg-[var(--off-white)] relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <FadeIn direction="up">
                         <div className="text-center mb-16">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Destinations</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Top Study Destinations</h2>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold uppercase tracking-widest mb-6">
+                                <Globe className="w-3.5 h-3.5" /> Destinations
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] tracking-tight">Top Study Destinations</h2>
                         </div>
                     </FadeIn>
-                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+
+                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
                         {destinations.map((dest) => (
                             <StaggerItem key={dest.slug}>
                                 <Link
                                     href={`/destinations/${dest.slug}`}
-                                    className="block group bg-white rounded-2xl overflow-hidden shadow-lg shadow-black/5 hover:shadow-2xl hover:shadow-[var(--brand-yellow)]/10 transition-all duration-300 hover:-translate-y-2 h-full border border-gray-100"
+                                    className="block group bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] transition-all duration-500 hover:-translate-y-2 h-full border border-gray-100/50"
                                 >
-                                    <div className="relative h-48 overflow-hidden">
-                                        <div className="absolute inset-0 bg-blue-900/20 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500" />
+                                    <div className="relative h-52 overflow-hidden">
                                         <img src={dest.image} alt={dest.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                                         <div className="absolute bottom-4 left-4 z-20 flex items-center gap-3">
-                                            {(() => {
-                                                const flag = dest.flagUrl;
-                                                if (!flag) return null;
-                                                if (flag.startsWith('http')) return <img src={flag} alt={`${dest.name} flag`} className="w-8 h-6 rounded border border-white/20 object-cover shadow-sm" />;
-
-                                                const codePoints = Array.from(flag).map(c => c.codePointAt(0)?.toString(16));
-                                                if (codePoints.length && codePoints.every(c => c)) {
-                                                    return <img src={`https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codePoints.join('-')}.svg`} alt={`${dest.name} flag`} className="w-8 h-6 rounded border border-white/20 object-cover shadow-sm bg-white" />;
-                                                }
-                                                return null;
-                                            })()}
-                                            <h3 className="font-bold text-white text-lg tracking-wide">{dest.name}</h3>
+                                            {dest.flagUrl && dest.flagUrl.startsWith('http') && (
+                                                <img src={dest.flagUrl} alt={`${dest.name} flag`} className="w-8 h-6 rounded-sm border border-white/30 object-cover shadow-md" />
+                                            )}
+                                            <h3 className="font-bold text-white text-lg drop-shadow-lg">{dest.name}</h3>
                                         </div>
                                     </div>
-                                    <div className="p-5 bg-white">
-                                        <p className="text-sm text-gray-500 font-medium leading-relaxed group-hover:text-[var(--brand-yellow)] transition-colors">{dest.fact}</p>
+                                    <div className="p-5">
+                                        <p className="text-sm text-gray-500 font-medium leading-relaxed group-hover:text-amber-600 transition-colors duration-300">{dest.fact}</p>
                                     </div>
                                 </Link>
                             </StaggerItem>
@@ -240,7 +219,7 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* ===== SECTION 6: UNIVERSITY & PROGRAM FINDER ===== */}
+            {/* ===== UNIVERSITY FINDER ===== */}
             <UniversityFinder
                 universities={universities.map(u => ({
                     id: u.id,
@@ -259,74 +238,84 @@ export default async function HomePage() {
                 }))}
             />
 
-            {/* ===== SECTION 7: JOURNEY TO ENROLLMENT STEPPER ===== */}
+            {/* ===== JOURNEY STEPPER ===== */}
             <JourneyStepper />
 
-            {/* ===== SECTION 8: SUCCESS STORIES COUNTER ===== */}
-            <section className="py-24 relative overflow-hidden">
-                <div className="absolute inset-0">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=80" alt="Campus life" className="w-full h-full object-cover mix-blend-overlay opacity-20" />
-                    <div className="absolute inset-0 bg-[#0A1628]" />
-                </div>
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* ===== IMPACT STATS ===== */}
+            <section className="py-28 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[#0A1628]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/[0.06] rounded-full blur-[150px] pointer-events-none" />
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
                     <FadeIn direction="up">
-                        <div className="text-center mb-16">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Our Impact</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-3 tracking-tight">Numbers That Speak</h2>
-                            <p className="text-gray-400 mt-4 max-w-xl mx-auto text-lg">Every number represents a dream we helped turn into reality.</p>
+                        <div className="text-center mb-20">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.08] text-amber-400 text-xs font-bold uppercase tracking-widest mb-6">
+                                <TrendingUp className="w-3.5 h-3.5" /> Our Impact
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">Numbers That Speak</h2>
+                            <p className="text-blue-200/40 mt-5 max-w-xl mx-auto text-lg">Every number represents a dream we helped turn into reality.</p>
                         </div>
                     </FadeIn>
-                    <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { value: "500+", label: "Students Placed", icon: GraduationCap, color: "from-blue-500 to-cyan-400" },
-                            { value: "98%", label: "Visa Success Rate", icon: Shield, color: "from-green-500 to-emerald-400" },
-                            { value: "50+", label: "Partner Universities", icon: Globe, color: "from-purple-500 to-violet-400" },
-                            { value: "6+", label: "Years of Excellence", icon: TrendingUp, color: "from-[var(--brand-yellow)] to-yellow-400" },
+                            { value: "500+", label: "Students Placed", icon: GraduationCap, gradient: "from-blue-500 to-cyan-400" },
+                            { value: "98%", label: "Visa Success Rate", icon: Shield, gradient: "from-emerald-500 to-teal-400" },
+                            { value: "50+", label: "Partner Universities", icon: Globe, gradient: "from-purple-500 to-violet-400" },
+                            { value: "6+", label: "Years of Excellence", icon: TrendingUp, gradient: "from-amber-500 to-orange-400" },
                         ].map((item) => (
                             <StaggerItem key={item.label} className="text-center group">
-                                <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${item.color} flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-white/5`}>
-                                    <item.icon className="w-10 h-10 text-white" />
+                                <div className="bg-white/[0.04] backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-500">
+                                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                                        <item.icon className="w-10 h-10 text-white" />
+                                    </div>
+                                    <p className="text-5xl font-extrabold text-white tracking-tight">{item.value}</p>
+                                    <p className="text-sm text-blue-200/40 mt-3 font-bold uppercase tracking-widest">{item.label}</p>
                                 </div>
-                                <p className="text-5xl font-extrabold text-white">{item.value}</p>
-                                <p className="text-sm text-blue-200 mt-3 font-medium uppercase tracking-wider">{item.label}</p>
                             </StaggerItem>
                         ))}
                     </StaggerContainer>
                 </div>
             </section>
 
-            {/* ===== SECTION 9: SCHOLARSHIP SPOTLIGHT ===== */}
+            {/* ===== SCHOLARSHIP SPOTLIGHT ===== */}
             <ScholarshipSpotlight />
 
-            {/* ===== SECTION 10: LEAD CAPTURE FORM ===== */}
-            <section className="py-24 bg-white relative overflow-hidden">
-                <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[var(--brand-yellow)]/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+            {/* ===== LEAD FORM ===== */}
+            <section className="py-28 bg-white relative overflow-hidden">
+                <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-amber-50/60 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-50/60 rounded-full blur-[100px] translate-y-1/2 translate-x-1/3 pointer-events-none" />
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <FadeIn direction="right">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Get Started</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight leading-tight">
-                                Ready to Start Your Study Abroad Journey?
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-100 text-amber-600 text-xs font-bold uppercase tracking-widest mb-6">
+                                <Sparkles className="w-3.5 h-3.5" /> Get Started
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] tracking-tight leading-tight">
+                                Ready to Start Your<br />Study Abroad Journey?
                             </h2>
                             <p className="text-gray-500 mt-6 leading-relaxed text-lg">
                                 Fill out the form and one of our expert counselors will get in touch within 24 hours. Our consultation is completely free.
                             </p>
-                            <div className="mt-8 space-y-4">
+                            <div className="mt-10 space-y-4">
                                 {["Free personalized counseling", "No hidden fees", "Expert visa guidance", "24/7 support"].map((item) => (
                                     <div key={item} className="flex items-center gap-4">
-                                        <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                            <CheckCircle2 className="w-5 h-5 text-green-600" />
+                                        <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center flex-shrink-0">
+                                            <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                                         </div>
-                                        <span className="text-gray-700 font-medium">{item}</span>
+                                        <span className="text-gray-700 font-semibold">{item}</span>
                                     </div>
                                 ))}
                             </div>
                         </FadeIn>
+
                         <FadeIn direction="left" delay={0.2}>
-                            <div className="bg-white border border-gray-100 shadow-2xl shadow-blue-900/5 rounded-3xl p-10 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                            <div className="bg-white border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.06)] rounded-3xl p-10 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-blue-50 to-purple-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                                 <h3 className="text-2xl font-bold text-[#0A1628] mb-8 relative z-10 flex items-center gap-3">
-                                    <span className="w-2 h-8 bg-gradient-to-b from-[var(--brand-yellow)] to-[var(--brand-yellow)] rounded-full"></span>
+                                    <span className="w-1.5 h-8 bg-gradient-to-b from-amber-500 to-amber-400 rounded-full" />
                                     Book Free Consultation
                                 </h3>
                                 <div className="relative z-10">
@@ -338,23 +327,25 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* ===== SECTION 11: TESTIMONIALS ===== */}
+            {/* ===== TESTIMONIALS ===== */}
             <TestimonialsCarousel testimonials={testimonials.length > 0 ? testimonials : [
                 { studentName: "Rahul Sharma", studentCourse: "MSc Data Science", universityName: "Imperial College London", targetCountry: "UK", quote: "Cambry made my UK dream possible. The visa process was flawless and the support was incredible." },
                 { studentName: "Ayesha Rahman", studentCourse: "BEng Mechanical", universityName: "University of Toronto", targetCountry: "Canada", quote: "I got a fast-track offer and a CAD 10,000 scholarship thanks to my counselor at Cambry." },
                 { studentName: "Priya Das", studentCourse: "MBA", universityName: "University of Melbourne", targetCountry: "Australia", quote: "The team at Cambry guided me through every step. I couldn't have done it without them." },
             ]} />
 
-            {/* ===== SECTION 12: PARTNER INSTITUTIONS ===== */}
-            <section className="py-20 bg-[#F8F9FA] relative">
+            {/* ===== PARTNERS ===== */}
+            <section className="py-24 bg-[var(--off-white)] relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <FadeIn direction="up">
                         <div className="text-center mb-14">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Trusted Partners</span>
-                            <h2 className="text-4xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Our Accreditations & Partnerships</h2>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold uppercase tracking-widest mb-6">
+                                <Shield className="w-3.5 h-3.5" /> Trusted Partners
+                            </div>
+                            <h2 className="text-4xl font-extrabold text-[#0A1628] tracking-tight">Our Accreditations & Partnerships</h2>
                         </div>
                     </FadeIn>
-                    <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
                         {[
                             { name: "British Council", logo: "https://www.britishcouncil.in/profiles/solas2/themes/solas_ui/images/desktop/britishcouncil_indigo_logo.jpg" },
                             { name: "IELTS Official", logo: "https://1000logos.net/wp-content/uploads/2021/03/IELTS-logo.jpg" },
@@ -376,7 +367,7 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* ===== SECTION 13: UNIVERSITY MARQUEE ===== */}
+            {/* ===== UNIVERSITY MARQUEE ===== */}
             <UniversityMarquee universities={universities.length > 0
                 ? universities.map(u => ({ name: u.name, imageUrl: u.imageUrl }))
                 : [
@@ -386,75 +377,74 @@ export default async function HomePage() {
                 ]
             } />
 
-            {/* ===== SECTION 14: COUNSELORS ===== */}
-            <section className="py-24 bg-white relative overflow-hidden">
-                <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-50/80 rounded-full blur-[100px] translate-y-1/2 translate-x-1/3 pointer-events-none" />
+            {/* ===== COUNSELORS & FAQ ===== */}
+            <section className="py-28 bg-white relative overflow-hidden">
+                <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-50/60 rounded-full blur-[120px] translate-y-1/2 translate-x-1/3 pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <FadeIn direction="up">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">Our Team</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Meet Our Counselors</h2>
-                            <p className="text-gray-500 mt-4 text-lg">Talk to our experts today and start your journey.</p>
-                        </FadeIn>
-                    </div>
-                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {(counselors.length > 0 ? counselors.slice(0, 4) : [
-                            { name: "Sarah Ahmed", role: "UK Counselor", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
-                            { name: "James Wilson", role: "Canada Specialist", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
-                        ]).map((c: any) => (
-                            <StaggerItem key={c.name}>
-                                <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-lg shadow-black/5 hover:shadow-xl hover:-translate-y-1 transition-all group">
-                                    <div className="relative h-64 overflow-hidden z-10">
-                                        <img src={c.imageUrl} alt={c.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                    </div>
-                                    <div className="p-6 text-center bg-white relative z-20">
-                                        <p className="font-bold text-[#0A1628] text-xl">{c.name}</p>
-                                        <p className="text-sm font-medium text-[var(--brand-yellow)] mt-1">{c.role}</p>
-                                    </div>
+                    <div className="grid lg:grid-cols-2 gap-16">
+                        {/* Counselors */}
+                        <div>
+                            <FadeIn direction="up">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-100 text-amber-600 text-xs font-bold uppercase tracking-widest mb-6">
+                                    <Users className="w-3.5 h-3.5" /> Our Team
                                 </div>
-                            </StaggerItem>
-                        ))}
-                    </StaggerContainer>
-                </div>
-            </section>
-
-            {/* ===== SECTION 15: FAQ ===== */}
-            <section className="py-24 bg-[#F8F9FA] relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[var(--brand-yellow)]/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-16">
-                        <FadeIn direction="up">
-                            <span className="text-[var(--brand-yellow)] font-bold text-sm uppercase tracking-widest">FAQ</span>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0A1628] mt-3 tracking-tight">Common Questions</h2>
-                            <p className="text-gray-500 mt-4 text-lg">Everything you need to know about the process.</p>
-                        </FadeIn>
-                    </div>
-                    <div className="space-y-4">
-                        {(faqs.length > 0 ? faqs.slice(0, 5) : [
-                            { question: "Can I apply without IELTS?", answer: "Many universities accept MOI (Medium of Instruction) or alternative tests like Duolingo depending on the country." },
-                            { question: "What is the study gap limit?", answer: "Most countries accept study gaps with proper justification. UK is generally lenient with 5-10+ year gaps." },
-                            { question: "How long does the process take?", answer: "From initial consultation to receiving your offer letter, it typically takes 4-8 weeks depending on the university and program." },
-                            { question: "Is the consultation really free?", answer: "Yes! Our initial consultation is completely free with no obligations. We only charge service fees after you decide to proceed." },
-                        ]).map((faq: any, i: number) => (
-                            <FadeIn direction="up" delay={0.1 * i} key={i}>
-                                <details className="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
-                                    <summary className="flex items-center justify-between p-6 cursor-pointer text-lg font-bold text-[#0A1628] hover:text-[var(--brand-yellow)] transition-colors list-none [&::-webkit-details-marker]:hidden">
-                                        {faq.question}
-                                        <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shrink-0 group-open:bg-[var(--brand-yellow)] group-open:text-white transition-colors duration-300">
-                                            <span className="text-xl leading-none font-medium transform group-open:rotate-45 transition-transform duration-300">+</span>
-                                        </div>
-                                    </summary>
-                                    <div className="px-6 pb-8 text-base text-gray-500 leading-relaxed pt-2">
-                                        {faq.answer}
-                                    </div>
-                                </details>
+                                <h2 className="text-4xl font-extrabold text-[#0A1628] mb-10 tracking-tight">Certified Counselors</h2>
                             </FadeIn>
-                        ))}
+                            <StaggerContainer className="grid grid-cols-2 gap-5">
+                                {(counselors.length > 0 ? counselors.slice(0, 4) : [
+                                    { name: "British Council Certified Counselor" },
+                                    { name: "ABC Certified Counselor" },
+                                    { name: "NZQA Certified Counselor" },
+                                    { name: "ICEF Certified Counselor" },
+                                ]).map((c: any) => (
+                                    <StaggerItem key={c.name}>
+                                        <div className="bg-white border border-gray-100/80 rounded-3xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-500 group text-center h-full flex flex-col items-center justify-center">
+                                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-400 flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                                                <Award className="w-7 h-7 text-white" />
+                                            </div>
+                                            <p className="font-bold text-[#0A1628] text-base leading-snug">{c.name}</p>
+                                        </div>
+                                    </StaggerItem>
+                                ))}
+                            </StaggerContainer>
+                        </div>
+
+                        {/* FAQ */}
+                        <div>
+                            <FadeIn direction="up" delay={0.2}>
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold uppercase tracking-widest mb-6">
+                                    <Star className="w-3.5 h-3.5" /> FAQ
+                                </div>
+                                <h2 className="text-4xl font-extrabold text-[#0A1628] mb-10 tracking-tight">Common Questions</h2>
+                            </FadeIn>
+                            <div className="space-y-3">
+                                {(faqs.length > 0 ? faqs.slice(0, 5) : [
+                                    { question: "Can I apply without IELTS?", answer: "Many universities accept MOI (Medium of Instruction) or alternative tests like Duolingo depending on the country." },
+                                    { question: "What is the study gap limit?", answer: "Most countries accept study gaps with proper justification. UK is generally lenient with 5-10+ year gaps." },
+                                    { question: "How long does the process take?", answer: "From initial consultation to receiving your offer letter, it typically takes 4-8 weeks depending on the university and program." },
+                                    { question: "Is the consultation really free?", answer: "Yes! Our initial consultation is completely free with no obligations. We only charge service fees after you decide to proceed." },
+                                ]).map((faq: any, i: number) => (
+                                    <FadeIn direction="up" delay={0.3 + (i * 0.1)} key={i}>
+                                        <details className="group bg-white border border-gray-100/80 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden">
+                                            <summary className="flex items-center justify-between p-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                                                <span className="font-bold text-[#0A1628] text-[15px] pr-4">{faq.question}</span>
+                                                <div className="w-8 h-8 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0 group-open:bg-amber-500 group-open:border-amber-500 group-open:text-white transition-all duration-300">
+                                                    <span className="text-lg leading-none transform group-open:rotate-45 transition-transform duration-300">+</span>
+                                                </div>
+                                            </summary>
+                                            <div className="px-6 pb-6 text-[15px] text-gray-500 leading-relaxed border-t border-gray-50">
+                                                {faq.answer}
+                                            </div>
+                                        </details>
+                                    </FadeIn>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* ===== SECTION 15: URGENCY CTA ===== */}
+            {/* ===== URGENCY CTA ===== */}
             <UrgencyCTA />
         </>
     );

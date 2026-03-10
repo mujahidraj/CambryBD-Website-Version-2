@@ -11,10 +11,15 @@ export default async function PublicLayout({
     children: React.ReactNode;
 }) {
     // Fetch countries for the Navbar dropdown
-    const countries = await prisma.country.findMany({
-        select: { name: true, slug: true, flagUrl: true },
-        orderBy: { name: 'asc' }
-    });
+    let countries: { name: string; slug: string; flagUrl: string | null }[] = [];
+    try {
+        countries = await prisma.country.findMany({
+            select: { name: true, slug: true, flagUrl: true },
+            orderBy: { name: 'asc' }
+        });
+    } catch {
+        // DB not available yet
+    }
 
     return (
         <>

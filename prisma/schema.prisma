@@ -91,6 +91,8 @@ model Lead {
   email           String
   phone           String
   desiredCountry  String
+  testPreference  String? // IELTS, PTE, IELTS & PTE, Not Sure
+  sourcePage      String? // e.g., /contact, /ielts-booking, /services
   programInterest String?
   message         String? @db.Text
 
@@ -235,12 +237,23 @@ model Certification {
 
 model IELTSInfo {
   id           String    @id @default(cuid())
+  testProvider String    @default("IELTS") // IELTS, PTE
+  offeringType String    @default("EXAM") // EXAM, COURSE
   testType     String // e.g., "IELTS Academic", "IELTS General Training", "IELTS UKVI"
+  moduleType   String? // e.g., "Academic", "General", "Core", "Fast Track"
   description  String    @db.Text
   fee          String // e.g., "BDT 22,500", "$250"
   venue        String // e.g., "British Council, Dhaka"
+  duration     String? // e.g., "4 weeks", "2.5 hours"
+  classMode    String? // e.g., "Online", "Offline", "Hybrid"
+  targetScore  String? // e.g., "IELTS 7+", "PTE 65+"
+  seats        Int?
   requirements String    @db.Text // What candidates need to bring/do
   nextDate     DateTime? // Next available test date
+  registrationOpenUntil DateTime?
+  ctaLabel     String?
+  ctaUrl       String?
+  notes        String?   @db.Text
   imageUrl     String? // Optional image
   isActive     Boolean   @default(true)
 

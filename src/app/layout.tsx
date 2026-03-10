@@ -21,6 +21,16 @@ export const metadata: Metadata = {
     "Malaysia education",
     "New Zealand study",
   ],
+  icons: {
+    icon: "/cambry-logo.png",
+    apple: "/cambry-logo.png",
+  },
+  openGraph: {
+    title: "Cambry — International Admission Centre | Study Abroad Experts",
+    description: "Expert guidance for studying abroad at top universities in the UK, Australia, Canada, Malaysia, New Zealand & more.",
+    images: ["/cambry-logo.png"],
+    type: "website",
+  },
 };
 
 export default function RootLayout({

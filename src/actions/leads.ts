@@ -4,6 +4,16 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { LeadStatus } from "@prisma/client";
 
+const supportedLeadFields = new Set(
+    prisma._runtimeDataModel.models.Lead?.fields.map((f) => f.name) ?? []
+);
+
+function pickSupportedLeadFields(data: Record<string, unknown>) {
+    return Object.fromEntries(
+        Object.entries(data).filter(([key, value]) => supportedLeadFields.has(key) && value !== undefined)
+    );
+}
+
 export async function getLeads() {
     return prisma.lead.findMany({
         orderBy: { createdAt: "desc" },
@@ -19,13 +29,15 @@ export async function createLead(data: {
     email: string;
     phone: string;
     desiredCountry: string;
+    testPreference?: string;
+    sourcePage?: string;
     programInterest?: string;
     message?: string;
     utmSource?: string;
     utmMedium?: string;
     utmCampaign?: string;
 }) {
-    const lead = await prisma.lead.create({ data });
+    const lead = await prisma.lead.create({ data: pickSupportedLeadFields(data) });
     revalidatePath("/admin/leads");
     return lead;
 }

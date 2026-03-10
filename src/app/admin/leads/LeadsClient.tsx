@@ -13,6 +13,8 @@ type Lead = {
     email: string;
     phone: string;
     desiredCountry: string;
+    testPreference?: string;
+    sourcePage?: string;
     message: string;
     status: string;
     createdAt: string;
@@ -118,6 +120,15 @@ export default function LeadsClient({ leads }: { leads: Lead[] }) {
                             <span className="flex items-center gap-1">
                                 <Phone className="w-3.5 h-3.5" /> {lead.phone}
                             </span>
+                        </div>
+
+                        <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <div className="px-3 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold">
+                                Test: {lead.testPreference || "Not provided"}
+                            </div>
+                            <div className="px-3 py-2 rounded-lg bg-purple-50 text-purple-700 font-semibold">
+                                Source: {lead.sourcePage || "Unknown"}
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-1 text-xs text-gray-400 mb-4">
